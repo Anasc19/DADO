@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dado Despedida 🎲</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      color: white;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 1.8rem;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 20px;
+      background: #fff;
+      color: #dd2476;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    button:hover {
+      background: #ff512f;
+      color: white;
+    }
+    #resultado {
+      margin-top: 30px;
+      font-size: 1.4rem;
+      background: rgba(0,0,0,0.5);
+      padding: 25px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .emoji {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      animation: bounce 0.6s infinite alternate;
+    }
+    @keyframes bounce {
+      from {transform: translateY(0);}
+      to {transform: translateY(-10px);}
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Dado de la Despedida 🎲</h1>
+  <button onclick="lanzarDado()">🎲 Tirar Dado</button>
+  <div id="resultado"></div>
+
+  <script>
+    const pruebas = {
+      1: "Tómate un chupito sin usar las manos.",
+      2: "Pide un beso en la mejilla a un desconocido.",
+      3: "Haz un baile sexy de 30 segundos en medio del grupo.",
+      4: "Intercambia una prenda con alguien del grupo.",
+      5: "Habla como narrador de telenovela dramática durante 3 minutos.",
+      6: "Deja que el grupo te pinte un bigote con marcador permanente."
+    };
+
+    function lanzarDado() {
+      const numero = Math.floor(Math.random() * 6) + 1;
+      document.getElementById("resultado").innerHTML = `
+        <div class="emoji">🎲</div>
+        <h2>El dado sacó: <b>${numero}</b></h2>
+        <p><b>Prueba:</b> ${pruebas[numero]}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
