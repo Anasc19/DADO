@@ -6,27 +6,39 @@
   <title>Despedado 🎲</title>
   <style>
     :root{
-      /* Ajusta este valor para mover el "foco" de la imagen: ejemplos "30% 50%", "left center", "50% 30%" */
-      --bg-pos: 30% 50%;
       --overlay: rgba(0,0,0,0.45);
       --accent: #dd2476;
     }
 
-    html,body{height:100%; margin:0; font-family:Arial, sans-serif; color:#fff;}
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:Arial, sans-serif;
+      color:#fff;
+    }
 
-    /* IMAGEN DE FONDO (elemento <img>) */
+    /* Fondo difuminado */
+    .bg-blur{
+      position: fixed;
+      inset: 0;
+      background: url("FotoSanti.png") no-repeat center center;
+      background-size: cover;
+      filter: blur(20px) brightness(0.6);
+      z-index: -2;
+    }
+
+    /* Imagen principal centrada */
     .bg-img{
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;         /* rellena y mantiene proporciones (puede recortar) */
-      object-position: var(--bg-pos); /* controla qué parte queda visible */
-      z-index: -2;
+      object-fit: contain; /* muestra la foto entera */
+      z-index: -1;
       pointer-events: none;
     }
 
-    /* Sombra sobre la imagen para mejorar legibilidad */
+    /* Overlay oscuro para contraste */
     .bg-overlay{
       position: fixed;
       inset: 0;
@@ -35,7 +47,7 @@
       pointer-events: none;
     }
 
-    /* Contenido principal */
+    /* Contenido */
     .content{
       min-height: 100vh;
       display: flex;
@@ -43,7 +55,6 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      box-sizing: border-box;
       text-align: center;
       gap: 16px;
       z-index: 1;
@@ -85,22 +96,23 @@
     @keyframes bounce{ from{transform: translateY(0)} to{transform: translateY(-8px)} }
     @keyframes fadeIn{ from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:translateY(0)} }
 
-    /* Media queries: en pantallas pequeñas cambia el foco del fondo */
     @media (max-width: 780px){
-      :root{ --bg-pos: 50% 30%; } /* sube el foco para móviles (ajusta si hace falta) */
       h1{ font-size: 1.8rem; }
       button{ font-size: 1.4rem; padding: 14px 28px; }
     }
   </style>
 </head>
 <body>
-  <!-- Imagen de fondo (archivo FotoSanti.png en la raíz del repo) -->
+  <!-- Fondo difuminado -->
+  <div class="bg-blur"></div>
+
+  <!-- Imagen principal entera -->
   <img class="bg-img" src="FotoSanti.png" alt="Fondo" />
 
-  <!-- Overlay para oscurecer y mejorar contraste -->
+  <!-- Overlay oscuro -->
   <div class="bg-overlay" aria-hidden="true"></div>
 
-  <!-- Contenedor de la app -->
+  <!-- Contenido -->
   <main class="content" role="main">
     <h1>🎉 Despedado 🎲</h1>
     <button onclick="lanzarDado()">🎲 Tirar Dado</button>
