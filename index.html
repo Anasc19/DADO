@@ -1,77 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Despedado 🎲</title>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      text-align: center;
-      background: url("FotoSanti.png") no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+    :root{
+      /* Ajusta este valor para mover el "foco" de la imagen: ejemplos "30% 50%", "left center", "50% 30%" */
+      --bg-pos: 30% 50%;
+      --overlay: rgba(0,0,0,0.45);
+      --accent: #dd2476;
+    }
+
+    html,body{height:100%; margin:0; font-family:Arial, sans-serif; color:#fff;}
+
+    /* IMAGEN DE FONDO (elemento <img>) */
+    .bg-img{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;         /* rellena y mantiene proporciones (puede recortar) */
+      object-position: var(--bg-pos); /* controla qué parte queda visible */
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Sombra sobre la imagen para mejorar legibilidad */
+    .bg-overlay{
+      position: fixed;
+      inset: 0;
+      background: var(--overlay);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Contenido principal */
+    .content{
       min-height: 100vh;
-      margin: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      gap: 16px;
+      z-index: 1;
+      width: 100%;
     }
-    h1 {
+
+    h1{
       font-size: 2.2rem;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
     }
-    button {
-      font-size: 1.8rem;
-      padding: 20px 40px;
+
+    button{
+      font-size: 1.6rem;
+      padding: 18px 34px;
       border: none;
-      border-radius: 20px;
+      border-radius: 18px;
       background: #fff;
-      color: #dd2476;
+      color: var(--accent);
       cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s;
+      transition: transform .18s ease, background .2s;
       box-shadow: 0 6px 15px rgba(0,0,0,0.3);
     }
-    button:active {
-      transform: scale(0.95);
-    }
-    button:hover {
-      background: #ff512f;
-      color: white;
-    }
-    #resultado {
-      margin-top: 30px;
-      font-size: 1.4rem;
+    button:active{ transform: scale(.97); }
+    button:hover{ background: #ff512f; color: #fff; }
+
+    #resultado{
+      margin-top: 18px;
+      font-size: 1.15rem;
       background: rgba(0,0,0,0.6);
-      padding: 25px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      animation: fadeIn 0.5s ease;
+      padding: 20px;
+      border-radius: 16px;
+      width: min(92%, 520px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      animation: fadeIn .45s ease;
     }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    .emoji {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      animation: bounce 0.6s infinite alternate;
-    }
-    @keyframes bounce {
-      from {transform: translateY(0);}
-      to {transform: translateY(-10px);}
+
+    .emoji{ font-size: 2.8rem; margin-bottom:8px; animation: bounce .7s infinite alternate; }
+    @keyframes bounce{ from{transform: translateY(0)} to{transform: translateY(-8px)} }
+    @keyframes fadeIn{ from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:translateY(0)} }
+
+    /* Media queries: en pantallas pequeñas cambia el foco del fondo */
+    @media (max-width: 780px){
+      :root{ --bg-pos: 50% 30%; } /* sube el foco para móviles (ajusta si hace falta) */
+      h1{ font-size: 1.8rem; }
+      button{ font-size: 1.4rem; padding: 14px 28px; }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Despedado 🎲</h1>
-  <button onclick="lanzarDado()">🎲 Tirar Dado</button>
-  <div id="resultado"></div>
+  <!-- Imagen de fondo (archivo FotoSanti.png en la raíz del repo) -->
+  <img class="bg-img" src="FotoSanti.png" alt="Fondo" />
+
+  <!-- Overlay para oscurecer y mejorar contraste -->
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <!-- Contenedor de la app -->
+  <main class="content" role="main">
+    <h1>🎉 Despedado 🎲</h1>
+    <button onclick="lanzarDado()">🎲 Tirar Dado</button>
+    <div id="resultado" aria-live="polite"></div>
+  </main>
 
   <script>
     const pruebas = {
@@ -79,8 +113,8 @@
       2: "Selfie con... 📷",
       3: "Si quieres ser de nuestra banda, has de beber del cilindro🍹",
       4: "Habilidad💪",
-      5: "....",
-      6: "Nos2222e."
+      5: "Media naranja🍊",
+      6: "Prenda 👚"
     };
 
     function lanzarDado() {
@@ -94,4 +128,3 @@
   </script>
 </body>
 </html>
-
